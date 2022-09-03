@@ -1,3 +1,4 @@
+const { ClientVoiceManager } = require('discord.js');
 const translate = require('translatte');
 
 module.exports = {
@@ -6,7 +7,11 @@ module.exports = {
         if(message.author.bot) return
 
         if(!await client.db.get(`${message.guild.id}.antilang`)){
-            await client.db.set(`${message.guild.id}.antilang`, "delete")
+            await client.db.push(`${message.guild.id}.antilang`, "los pollos hermanos")
+        }
+
+        if(!await client.db.get(`${message.guild.id}.whitelist`)){
+            await client.db.push(`${message.guild.id}.whitelist`, "delete")
         }
 
         const emotes = (str) => str.match(/<a?:.+?:\d{18}>|\p{Extended_Pictographic}/gu)
@@ -15,20 +20,29 @@ module.exports = {
             emotes(message.content).forEach(emoji => {
                 message.content = message.content.replace(emoji, "")
             });
-
-            console.log("filtered")
         }
 
-        if(message.content === "") return console.log("empty")
-
         const option = await client.db.get(`${message.guild.id}.antilang`)
+        const whitelist = await client.db.get(`${message.guild.id}.whitelist`)
+
+        whitelist.forEach(phrase => {
+            message.content = message.content.replace(phrase, "")
+        })
+
+        if(message.content === "") return
 
         client.langDetector.detect(message.content).then(function(result) {
             if(result[0]?.language !== "en"){
                 if(option === "delete"){
                     translate(message.content, {to: 'en'}).then(res => {
                         if(message.content === res.text) return
-                        else message.delete()
+                        else {
+                            message.delete()
+                            message.channel.send({content: `ENGLISH ONLY ${message.author}`})
+                            .then(msg => {
+                                setTimeout(() => msg.delete(), 5000)
+                            })
+                        }
                     })
                 } else {
                     message.react("🧾")
@@ -36,5 +50,7 @@ module.exports = {
                 
             }
         });
+
+        
     }
 }
