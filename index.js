@@ -16,8 +16,9 @@ const client = new Discord.Client({
     ]
 })
 
-// const LanguageDetect = require('detectlanguage')
+const LanguageDetect = require('detectlanguage')
 
+client.langDetector = new LanguageDetect(process.env.DETECT_TOKEN)
 client.db = db
 client.commands = new Discord.Collection()
 client.events = new Discord.Collection()
