@@ -23,26 +23,18 @@ module.exports = {
 
         const option = await client.db.get(`${message.guild.id}.antilang`)
 
-        // // client.langDetector.detect(message.content).then(function(result) {
-        // //     if(result[0]?.language !== "en"){
-        //         if(option === "delete"){
-        //             translate(message.content, {to: 'en'}).then(res => {
-        //                 if(message.content === res.text) return
-        //                 else message.delete()
-        //             })
-        //         } else {
-        //             message.react("🧾")
-        //         }
+        client.langDetector.detect(message.content).then(function(result) {
+            if(result[0]?.language !== "en"){
+                if(option === "delete"){
+                    translate(message.content, {to: 'en'}).then(res => {
+                        if(message.content === res.text) return
+                        else message.delete()
+                    })
+                } else {
+                    message.react("🧾")
+                }
                 
-        // //     }
-        // // });
-        translate(message.content, {to: 'en'}).then(res => {
-            if(message.content === res.text) return
-            if(option === "delete"){
-                message.delete()
-            } else {
-                message.react("🧾")
             }
-        })
+        });
     }
 }
