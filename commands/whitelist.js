@@ -11,8 +11,8 @@ module.exports = {
         ),
     /*- execute -*/
 	async execute(Discord, client, interaction) {
-        await client.db.push(`${interaction.guild.id}.whitelist`, interaction.options.getString('input'))
+        await client.db.push(`${interaction.guild.id}.whitelist`, interaction.options.getString('input').toLowerCase())
 
-        interaction.reply({content: `I have added the phrase to the whitelist`})
+        interaction.reply({content: `I have added the phrase/word to the whitelist!`})
 	},
 };
