@@ -7,7 +7,7 @@ module.exports = (client, Discord) => {
     const commands = []
     const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith(".js"))
 
-    const clientId = "744579774789451837"
+    const clientId = "822219008568590407"
 
     for(const file of commandFiles){
         const command = require(`../commands/${file}`)

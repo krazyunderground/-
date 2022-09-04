@@ -1,4 +1,5 @@
 /.env
-node_modules
-.gitignore
-json.sqlite
+/node_modules
+/.gitignore
+/json.sqlite
+/join-log.txt

@@ -12,7 +12,7 @@ const client = new Discord.Client({
         Discord.GatewayIntentBits.GuildBans,
         Discord.GatewayIntentBits.GuildMessages,
         Discord.GatewayIntentBits.MessageContent,
-        Discord.GatewayIntentBits.GuildMessageReactions
+        Discord.GatewayIntentBits.GuildMessageReactions,
     ]
 })
 
