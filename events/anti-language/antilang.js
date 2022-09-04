@@ -38,7 +38,7 @@ module.exports = {
                         if(message.content === res.text) return
                         else {
                             message.delete()
-                            message.channel.send({content: `ENGLISH ONLY ${message.author}`})
+                            message.channel.send({content: `English only ${message.author}!`})
                             .then(msg => {
                                 setTimeout(() => msg.delete(), 5000)
                             })
